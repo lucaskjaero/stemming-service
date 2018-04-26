@@ -1,1 +1,1 @@
-web: gunicorn VocabService:app
+web: gunicorn StemmingService:app
