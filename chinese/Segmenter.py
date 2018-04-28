@@ -1,7 +1,7 @@
-import re
-
 # Chinese word segmentation
 import jieba
+
+from Common import drop_punctuation_and_numbers
 
 __author__ = 'Lucas Kjaero'
 
@@ -11,15 +11,6 @@ try:
     jieba.enable_parallel(cpu_count())
 except NotImplementedError:
     pass
-
-number_pattern = re.compile("[0-9]+(.)*[0-9]*")
-
-
-def drop_punctuation_and_numbers(iterable_text):
-    """A generator that returns tokens in a text if they are not punctuation or numbers. Input must be iterable"""
-    for token in iterable_text:
-        if token not in ",.?;'[]()（）`~!@#$%^&*/+_-=<>{}:，。？！·；：‘“、\"" and number_pattern.match(token) is None:
-            yield token
 
 
 def segment_sentence(input_text, split_compounds=False):
