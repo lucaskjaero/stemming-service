@@ -22,8 +22,8 @@ class DocumentHandler(Resource):
             words = segment_chinese(text)
         elif language == "english":
             words = segment_english(text)
-        elif language == "spanish":
-            words = segment_spanish(text)
+        #elif language == "spanish":
+            #words = segment_spanish(text)
         else:
             status = "ERROR"
             message = "Language %s has not been implemented yet." % language
