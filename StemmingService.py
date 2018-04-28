@@ -1,20 +1,30 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 
-from chinese.Segmenter import words_in_text
+from chinese.Segmenter import segment_chinese
 
 app = Flask(__name__)
 api = Api(app)
 
 class DocumentHandler(Resource):
     def post(self, language):
+        # Default responses
+        words = []
+        message = ""
+        status = "OK"
+
+        request_json = request.get_json()
+        text = request_json['text']
+
         if (language == "chinese"):
-            text = request.form['text']
-            words = list(words_in_text(text))
+            words = segment_chinese(text)
+        else:
+            status = "ERROR"
+            message = "Language %s has not been implemented yet." % language
 
-        return {"words": words, "language": language}
+        return {"status": status, "message": message, "words": words}
 
-api.add_resource(DocumentHandler, '/v1/document/<string:language>')
+api.add_resource(DocumentHandler, '/v1/<string:language>/document')
 
 if __name__ == '__main__':
     app.run(debug=True)
