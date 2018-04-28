@@ -3,6 +3,7 @@ from flask_restful import Resource, Api
 
 from chinese.Segmenter import segment_chinese
 from english.Segmenter import segment_english
+from spanish.Segmenter import segment_spanish
 
 app = Flask(__name__)
 api = Api(app)
@@ -21,6 +22,8 @@ class DocumentHandler(Resource):
             words = segment_chinese(text)
         elif language == "english":
             words = segment_english(text)
+        elif language == "spanish":
+            words = segment_spanish(text)
         else:
             status = "ERROR"
             message = "Language %s has not been implemented yet." % language
