@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 
 from chinese.Segmenter import segment_chinese
+from english.Segmenter import segment_english
 
 app = Flask(__name__)
 api = Api(app)
@@ -16,8 +17,10 @@ class DocumentHandler(Resource):
         request_json = request.get_json()
         text = request_json['text']
 
-        if (language == "chinese"):
+        if language == "chinese":
             words = segment_chinese(text)
+        elif language == "english":
+            words = segment_english(text)
         else:
             status = "ERROR"
             message = "Language %s has not been implemented yet." % language
