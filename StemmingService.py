@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
+from flask_cors import CORS
 
 from chinese.Segmenter import segment_chinese
 from english.Segmenter import segment_english
@@ -7,6 +8,8 @@ from spanish.Segmenter import segment_spanish
 
 app = Flask(__name__)
 api = Api(app)
+
+cors = CORS(app)
 
 class DocumentHandler(Resource):
     def post(self, language):
