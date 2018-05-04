@@ -4,7 +4,7 @@ from flask_cors import CORS
 
 from chinese.Segmenter import segment_chinese
 from english.Segmenter import segment_english
-from spanish.Segmenter import segment_spanish
+#from spanish.Segmenter import segment_spanish
 
 app = Flask(__name__)
 api = Api(app)
@@ -21,15 +21,19 @@ class DocumentHandler(Resource):
         request_json = request.get_json()
         text = request_json['text']
 
-        if language == "chinese":
-            words = segment_chinese(text)
-        elif language == "english":
-            words = segment_english(text)
-        #elif language == "spanish":
-            #words = segment_spanish(text)
-        else:
+        try:
+            if language == "chinese":
+                words = segment_chinese(text)
+            elif language == "english":
+                words = segment_english(text)
+            #elif language == "spanish":
+                #words = segment_spanish(text)
+            else:
+                status = "ERROR"
+                message = "Language %s has not been implemented yet." % language
+        except:
             status = "ERROR"
-            message = "Language %s has not been implemented yet." % language
+            message = "An error occurred"
 
         return {"status": status, "message": message, "words": words}
 
