@@ -2,7 +2,7 @@ import re
 
 __author__ = 'Lucas Kjaero'
 
-PUNCTUATION_CHARACTERS = ",.?;'[]()（）`~!@#$%^&*/+_-=<>{}:，。？！·；：‘“、\""
+PUNCTUATION_CHARACTERS = ",.?;'[]()（）`~!@#$%^&*/+_-=<>{}:，。？！·；：‘“、\"”《》"
 number_pattern = re.compile("[0-9]+(.)*[0-9]*")
 
 def drop_punctuation_and_numbers(iterable_text):
