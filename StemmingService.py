@@ -15,6 +15,7 @@ class DocumentHandler(Resource):
         words = []
         message = ""
         status = "OK"
+        response_code = 200
 
         request_json = request.get_json()
         text = request_json['text']
@@ -29,11 +30,13 @@ class DocumentHandler(Resource):
             else:
                 status = "ERROR"
                 message = "Language %s has not been implemented yet." % language
+                response_code = 400
         except:
             status = "ERROR"
             message = "An error occurred"
+            response_code = 500
 
-        return {"status": status, "message": message, "words": words}
+        return {"status": status, "message": message, "words": words}, response_code
 
 api.add_resource(DocumentHandler, '/v1/<string:language>/document')
 
