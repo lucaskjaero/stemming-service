@@ -38,7 +38,14 @@ class DocumentHandler(Resource):
 
         return {"status": status, "message": message, "words": words}, response_code
 
+
+class HealthHandler(Resource):
+    def get(self):
+        return "Stemming service is up", 200
+
+
 api.add_resource(DocumentHandler, '/v1/<string:language>/document')
+api.add_resource(HealthHandler, '/')
 
 if __name__ == '__main__':
     app.run(debug=True)
